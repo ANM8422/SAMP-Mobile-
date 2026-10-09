@@ -1,4 +1,3 @@
-
 name: Build ANM Game APK
 
 on:
@@ -10,13 +9,14 @@ jobs:
 
     steps:
       - name: Get GTA 2.11 source
-              - name: Fix header filename case
-        run: |
-          sed -i 's/playerTabList\.h/playertablist.h/' app/src/main/cpp/samp/gui/gui.h
-          uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           repository: kuzia15/SAMP-Mobile
           ref: GTA-2.11
+
+      - name: Fix header filename case
+        run: |
+          sed -i 's/playerTabList\.h/playertablist.h/' app/src/main/cpp/samp/gui/gui.h
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -44,4 +44,3 @@ jobs:
           name: ANM-Game-APK
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-
