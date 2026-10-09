@@ -10,7 +10,10 @@ jobs:
 
     steps:
       - name: Get GTA 2.11 source
-        uses: actions/checkout@v4
+              - name: Fix header filename case
+        run: |
+          sed -i 's/playerTabList\.h/playertablist.h/' app/src/main/cpp/samp/gui/gui.h
+          uses: actions/checkout@v4
         with:
           repository: kuzia15/SAMP-Mobile
           ref: GTA-2.11
