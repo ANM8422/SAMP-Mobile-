@@ -1,1 +1,20 @@
-.github/workflows/android.yml
+
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show project files
+        run: |
+          echo "Checking Android project structure..."
+          ls -la
+          echo "Checking Gradle files..."
+          find . -maxdepth 3 \( -name "settings.gradle*" -o -name "build.gradle*" -o -name "gradlew" \) -print
+
