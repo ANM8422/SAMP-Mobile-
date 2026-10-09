@@ -1,0 +1,37 @@
+
+name: Build ANM Game APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get GTA 2.11 source
+        uses: actions/checkout@v4
+        with:
+          repository: kuzia15/SAMP-Mobile
+          ref: GTA-2.11
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ANM-Game-APK
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
